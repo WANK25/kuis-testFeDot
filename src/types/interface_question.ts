@@ -5,6 +5,6 @@ interface QuestionData {
   incorrect_answers: string[];
 }
 
-export default interface QuestionProps {
+export default interface QuizProps {
   dataQuestions: QuestionData[];
 }

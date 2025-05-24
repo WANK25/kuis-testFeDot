@@ -42,8 +42,6 @@ export const useQuestion = (dataQuestions: QuestionData[]) => {
   };
   const navigate = useNavigate();
 
-
-  
   const handleFinish = () => {
     const totalTrueAnswer = calculateScore();
     const totalIncorrectAnswer = calculateIncorrectAnswer();

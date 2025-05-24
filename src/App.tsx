@@ -18,24 +18,21 @@ function App() {
   useEffect(() => {
     if (!username) {
       navigate('/login');
-    } else {
-      QuestionsAPI().then((data) => setDataQuestions(data));
     }
-  }, [username]);
+  }, []);
 
   return (
     <Routes>
-      <Route
-        path="/quiz"
-        element={<Question dataQuestions={dataQuestions} />}
-      />
-      <Route path="/" element={<Home username={username} />} />
+      <Route path="/quiz" element={<Question />} />
+      <Route path="/" element={<Home username={username} setUsername={setUsername} />} />
+
+      <Route path="/score" element={<ScoreQuiz />} />
+      <Route path="/review" element={<Review />} />
+
       <Route
         path="/login"
         element={<Login setUsername={setUsername} username={username} />}
       />
-      <Route path="/score" element={<ScoreQuiz />} />
-      <Route path="/review" element={<Review />} />
     </Routes>
   );
 }

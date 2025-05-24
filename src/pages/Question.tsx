@@ -1,16 +1,25 @@
 import { useQuizTimer } from '../components/question/hooks/use_quizTimer';
 import { useEffect } from 'react';
 import { useQuestion } from '../components/question/hooks/use_question';
+import { useUser } from '../components/login/UserContext';
+import { useState } from 'react';
+import { QuestionsAPI } from '../data/Queztion_API';
 import {
   AnswerOption,
   CardNumberQuiz,
   NextPrevious,
 } from '../components/question';
 
-import QuestionProps from '../types/interface_question';
+import QuizProps from '../types/interface_question';
 import { showConfirmationAlert } from '../utils/popup';
 
-export default function Question({ dataQuestions }: QuestionProps) {
+export default function Question() {
+  const { username } = useUser();
+  const [dataQuestions, setDataQuestions] = useState<QuizProps[]>([]);
+
+  useEffect(() => {
+    QuestionsAPI().then((data) => setDataQuestions(data));
+  }, []);
   const {
     currentQuestionIndex,
     currentQuestion,
@@ -27,7 +36,7 @@ export default function Question({ dataQuestions }: QuestionProps) {
 
   const handleConfirmFinishQuiz = () => {
     showConfirmationAlert({
-       title: 'Are you sure you want to submit the quiz?',
+      title: 'Are you sure you want to submit the quiz?',
       message: ' Your answers will be submitted.',
       confirmText: 'Submit',
       cancelText: 'Cancel',
@@ -36,8 +45,8 @@ export default function Question({ dataQuestions }: QuestionProps) {
         handleFinish();
         // Atau bisa juga panggil API, update state, dll
       },
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     if (timeLeft === 0) {

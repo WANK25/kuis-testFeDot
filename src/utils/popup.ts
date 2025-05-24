@@ -60,3 +60,30 @@ export function showConfirmationAlert({
       }
     });
 }
+
+export function showSuccessAlert(title: string) {
+  return Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'success',
+    title,
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    background: '#262d27',
+    color: '#fff',
+    customClass: {
+      popup: 'rounded-xl shadow-lg font-display text-white text-base',
+    },
+    didRender: () => {
+      const bar = document.querySelector('.swal2-timer-progress-bar');
+      if (bar) {
+        (bar as HTMLElement).style.setProperty(
+          'background',
+          'white',
+          'important',
+        );
+      }
+    },
+  });
+}
